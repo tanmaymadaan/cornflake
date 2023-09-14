@@ -7,14 +7,16 @@ import (
 )
 
 func main() {
+	cornflakeIndex := os.Getenv("INDEX")
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		_, err := fmt.Fprintf(w, "Cornflake %v is up and running", os.Getenv("INDEX"))
+		_, err := fmt.Fprintf(w, "Cornflake %s is up and running", cornflakeIndex)
 		if err != nil {
 			return
 		}
 	})
 
-	fmt.Println("Backend server listening on :" + os.Getenv("PORT"))
+	fmt.Printf("Cornflake %s is up and running on port: %s", cornflakeIndex, os.Getenv("PORT"))
 	if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
 		fmt.Printf("Server error: %s\n", err)
 	}
